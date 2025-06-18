@@ -27,4 +27,8 @@ Thank you for supporting independent development!
 
 ## 👨‍💻 Developers Team
 
+<a href="https://github.com/MONZikWasTaken/SWAV2/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=MONZikWasTaken/SWAV2" />
+</a>
+
 
