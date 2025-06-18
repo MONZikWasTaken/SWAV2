@@ -3,7 +3,7 @@
 
 ---
 
-## 🙌 Support the Project  
+## Support the Project  
 Help us maintain and improve SWA V2 by donating cryptocurrency:
 
 | Coin         | Address                                                                 |
@@ -25,7 +25,7 @@ Thank you for supporting independent development!
 
 ---
 
-## 👨‍💻 Developers Team
+## Contributors
 
 <a href="https://github.com/MONZikWasTaken/SWAV2/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=MONZikWasTaken/SWAV2" />
