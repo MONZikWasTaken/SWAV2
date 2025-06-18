@@ -27,9 +27,4 @@ Thank you for supporting independent development!
 
 ## 👨‍💻 Developers Team
 
-| Avatar | Name / GitHub | Role |
-|--------|---------------|------|
-| <img src="https://github.com/MONZikWasTaken.png" width="60" height="60" alt="MONZik" /> | [@MONZikWasTaken](https://github.com/MONZikWasTaken) | Lead Developer |
-| <img src="https://github.com/yuliitezarygml.png" width="60" height="60" alt="yuliitezary" /> | [@yuliitezarygml](https://github.com/yuliitezarygml) | Backend Engineer |
 
-> ✨ Want to contribute? Fork the repo and submit a pull request!
