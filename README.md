@@ -1,5 +1,5 @@
 # SWA V2 Source Code
-**A project by [SWACloud.com](https://swacloud.com)**
+**A project by [SWACloud.com](https://swacloud.com)** using [SteamTools.net](https://www.steamtools.net/)
 
 ---
 
