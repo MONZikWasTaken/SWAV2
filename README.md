@@ -10,10 +10,8 @@
 <a href="https://github.com/MONZikWasTaken/SWAV2/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=MONZikWasTaken/SWAV2" />
 </a>
-## 👥 Контрибьюторы
-
-<a href="https://github.com/yuliitezarygml/НАЗВАНИЕ_РЕПОЗИТОРИЯ/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=yuliitezarygml/НАЗВАНИЕ_РЕПОЗИТОРИЯ" />
+<a href="https://github.com/yuliitezarygml/yuliitezarygml/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=yuliitezarygml/yuliitezarygml" />
 </a>
 
 
