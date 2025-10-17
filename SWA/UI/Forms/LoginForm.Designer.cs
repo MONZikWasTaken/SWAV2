@@ -1,4 +1,4 @@
-﻿namespace SWA
+﻿namespace SWA.UI.Forms
 {
     partial class LoginForm
     {
@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.SuspendLayout();
             // 
             // LoginForm
             // 
             this.ClientSize = new System.Drawing.Size(384, 391);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.Text = "SWA V2 - Login";
             this.ResumeLayout(false);

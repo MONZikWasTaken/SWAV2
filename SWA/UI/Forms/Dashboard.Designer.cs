@@ -1,4 +1,4 @@
-﻿namespace SWA
+﻿namespace SWA.UI.Forms
 {
     partial class Dashboard
     {
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dashboard));
             this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +51,6 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.webView21);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Dashboard";
             this.Text = "Dashboard";
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();

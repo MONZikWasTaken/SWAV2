@@ -361,3 +361,19 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Custom ignores
+*.zip
+*.rar
+*.7z
+GFK/
+.idea/
+.claude/
+_nul
+*.example
+*README.md
+BANNER_README.md
+*.backup
+*.fixed
+*ORIGINAL*
+*CORRUPTED*

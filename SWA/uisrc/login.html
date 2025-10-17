@@ -1,0 +1,1100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SWA V2 - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066ff;
+            --primary-hover: #005ae0;
+            --text: #f1f1f1;
+            --text-secondary: #a0a0a0;
+            --border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(20, 20, 20, 0.7);
+            --title-bar-bg: rgba(15, 15, 15, 0.9);
+            --bg-gradient: linear-gradient(180deg, rgba(15, 15, 15, 0.9) 0%, rgba(12, 12, 12, 0.9) 100%);
+            --close-btn-hover: #e81123;
+            --minimize-btn-hover: #333333;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --info: #3498db;
+        }
+
+        /* Make all elements unselectable */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #121212;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 400px;
+            height: 520px;
+            position: relative;
+            margin: 0 auto;
+            background: var(--bg-gradient);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Title Bar */
+        .title-bar {
+            height: 40px;
+            background-color: var(--title-bar-bg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            
+            user-select: none;
+            border-bottom: 1px solid var(--border);
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
+        }
+
+        .title-bar-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .title-bar-text i {
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .window-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .window-control {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+            margin-left: 6px;
+            outline: none;
+            position: relative;
+            z-index: 10;
+        }
+
+        .window-control:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .window-control:active {
+            transform: scale(0.9);
+        }
+
+        .window-control.minimize:hover {
+            background-color: var(--minimize-btn-hover);
+            color: white;
+        }
+
+        .window-control.close:hover {
+            background-color: var(--close-btn-hover);
+            color: white;
+        }
+
+        /* Login Form */
+        .login-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            width: 340px;
+            background-color: transparent;
+            border: none;
+            padding: 5px 0;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s forwards 0.2s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .logo i {
+            background-color: var(--primary);
+            color: black;
+            padding: 15px;
+            border-radius: 0;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .login-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+            color: white;
+            letter-spacing: 0.3px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 15px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            outline: none;
+            text-align: center;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.2);
+        }
+
+        /* Password field container with eye icon */
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+            background: none;
+            border: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+
+        .password-toggle:hover {
+            color: var(--text);
+        }
+
+        .activate-btn {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0, 102, 255, 0.3);
+        }
+
+        .activate-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 102, 255, 0.4);
+        }
+
+        .activate-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 102, 255, 0.4);
+        }
+
+        .activate-btn:disabled {
+            background-color: #333;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        /* Guest login button */
+        .guest-login-btn {
+            display: block;
+            width: 100%;
+            height: 44px;
+            background-color: rgba(40, 40, 40, 0.5);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            outline: none;
+            margin-top: 5px;
+        }
+        
+        .guest-login-btn:hover {
+            background-color: rgba(50, 50, 50, 0.8);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .guest-login-btn:active {
+            transform: translateY(1px);
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+        
+        /* Login divider */
+        .login-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .login-divider span {
+            display: inline-block;
+            padding: 0 10px;
+            background-color: transparent;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Text link button (no borders, minimal styling) */
+        .text-link-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            padding: 8px 12px;
+            transition: color 0.2s ease;
+            outline: none;
+            text-decoration: none;
+        }
+
+        .text-link-btn:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .text-link-btn:active {
+            color: var(--primary-hover);
+        }
+
+        /* Status Message */
+        .status-message {
+            position: absolute;
+            top: 40px; /* Just below title bar */
+            left: 0;
+            right: 0;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .status-message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .status-message.error {
+            background-color: rgba(231, 76, 60, 0.7);
+            color: white;
+        }
+
+        .status-message.success {
+            background-color: rgba(46, 204, 113, 0.7);
+            color: white;
+        }
+
+        .status-message.info {
+            background-color: rgba(52, 152, 219, 0.7);
+            color: white;
+        }
+
+        /* Connection Error Overlay */
+        .connection-error-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .error-content {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .error-icon {
+            font-size: 64px;
+            color: var(--danger);
+            margin-bottom: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        .error-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .error-message {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .error-details {
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 32px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: left;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .error-details:empty {
+            display: none;
+        }
+
+        .error-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .error-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-btn.primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .error-btn.primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+        }
+
+        .error-btn.secondary {
+            background-color: rgba(40, 40, 40, 0.8);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .error-btn.secondary:hover {
+            background-color: rgba(50, 50, 50, 0.9);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div class="title-bar-text">
+                <i class="fas fa-shield-alt"></i>
+                SWA V2
+            </div>
+            <div class="window-controls">
+                <button class="window-control minimize" onclick="minimizeWindow()">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="window-control close" onclick="closeWindow()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Message -->
+        <div id="status-message" class="status-message">
+            Status message here
+        </div>
+
+        <!-- Login Content -->
+        <div class="login-content">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h1 class="login-title">Welcome to SWA V2</h1>
+                    <p class="login-subtitle">Login to continue</p>
+                </div>
+
+                <!-- SWA Cloud Login Section (Default View) -->
+                <div id="swacloud-section">
+                    <button id="swacloud-login-btn" class="activate-btn" onclick="loginWithSWACloud()">
+                        <i class="fas fa-cloud"></i> Login with SWA Cloud
+                    </button>
+
+                    <div class="login-divider">
+                        <span>or</span>
+                    </div>
+
+                    <button id="guest-login-btn" class="guest-login-btn" onclick="loginAsGuest()">
+                        Continue as Guest
+                    </button>
+
+                    <!-- Toggle to Manual Entry Link -->
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="text-link-btn" onclick="showManualEntry()">
+                            Enter activation code manually
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Manual Code Entry Section (Hidden by default) -->
+                <div id="manual-entry-section" style="display: none;">
+                    <div class="form-group">
+                        <label for="activation-code" class="form-label">Activation Code</label>
+                        <div class="password-container">
+                            <input type="text" id="activation-code" class="form-input" placeholder="SWA2-XXXX-XXXX" oninput="handleInputChange()" onpaste="setTimeout(handleInputChange, 0)">
+                            <button type="button" class="password-toggle" onclick="toggleActivationVisibility()">
+                                <i class="fas fa-eye" id="visibility-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="activate-btn" class="activate-btn" onclick="activate()" style="margin-top: 30px;">
+                        Activate
+                    </button>
+
+                    <!-- Toggle back to SWA Cloud Link -->
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="text-link-btn" onclick="showSWACloudLogin()">
+                            <i class="fas fa-arrow-left"></i> Back to SWA Cloud login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection Error Overlay -->
+    <div class="connection-error-overlay" id="connection-error-overlay" style="display: none;">
+        <div class="error-content">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2 class="error-title">Connection Failed</h2>
+            <p class="error-message" id="error-message">Unable to connect to SWA servers. Please check your internet connection and try again.</p>
+            <div class="error-details" id="error-details"></div>
+            <div class="error-buttons">
+                <button class="error-btn primary" onclick="window.chrome.webview.postMessage('open-support')">
+                    <i class="fas fa-life-ring"></i> Contact Support
+                </button>
+                <button class="error-btn secondary" onclick="window.chrome.webview.postMessage('close')">
+                    <i class="fas fa-times"></i> Exit Application
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Track activation code visibility - default to hidden
+        let activationVisible = false;
+        
+        // Real value storage
+        let realActivationCode = '';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the eye icon and input field
+            initializeActivationInput();
+            // Добавляем обработчик paste для поля активации
+            document.getElementById('activation-code').addEventListener('paste', function(e) {
+                e.preventDefault();
+                let paste = (e.clipboardData || window.clipboardData).getData('text');
+                // Оставляем только буквы и цифры, приводим к верхнему регистру
+                paste = paste.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                // Форматируем как SWA2-XXXX-XXXX
+                if (!paste.startsWith('SWA2')) {
+                    if (paste.length >= 4) {
+                        paste = 'SWA2' + paste.substring(4);
+                    } else {
+                        paste = 'SWA2' + paste.substring(Math.min(paste.length, 4));
+                    }
+                }
+                let result = '';
+                if (paste.length > 0) {
+                    result = paste.substring(0, 4);
+                    if (paste.length > 4) {
+                        result += '-' + paste.substring(4, 8);
+                    }
+                    if (paste.length > 8) {
+                        result += '-' + paste.substring(8, 12);
+                    }
+                }
+                if (result.length > 14) {
+                    result = result.substring(0, 14);
+                }
+                realActivationCode = result;
+                this.value = result;
+                updateActivateButtonState();
+            });
+        });
+        
+        // Initialize the activation input field
+        function initializeActivationInput() {
+            const input = document.getElementById('activation-code');
+            const icon = document.getElementById('visibility-icon');
+            
+            // Set the initial state of the eye icon
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+            
+            // Apply initial masking if there's a default value
+            if (input.value) {
+                realActivationCode = formatActivationCode(input.value);
+                applyMasking();
+            }
+        }
+        
+        // Handle input changes (typing, pasting, etc.)
+        function handleInputChange() {
+            const input = document.getElementById('activation-code');
+            
+            // If visible, update the real value
+            if (activationVisible) {
+                realActivationCode = formatActivationCode(input.value);
+            } else {
+                // If hidden and interacting with the masked field
+                // We need to get the real value behind the mask
+                const curPos = input.selectionStart;
+                const oldMask = input.value;
+                
+                // Get the real value before this change
+                let newValue = realActivationCode || '';
+                
+                // If typing in masked field, try to update the real value
+                if (oldMask && oldMask.includes('*') && curPos > 5) {
+                    // User is typing within a masked part
+                    newValue = formatActivationCode(input.value);
+                } else {
+                    // Regular update
+                    newValue = formatActivationCode(input.value);
+                }
+                
+                realActivationCode = newValue;
+            }
+            
+            // Apply the appropriate display (masked or visible)
+            if (activationVisible) {
+                input.value = realActivationCode;
+            } else {
+                applyMasking();
+            }
+            
+            // Enable or disable the activate button based on valid format
+            updateActivateButtonState();
+        }
+        
+        // Format the activation code to SWA2-XXXX-XXXX pattern
+        function formatActivationCode(value) {
+            if (!value) return '';
+            
+            // Keep only alphanumeric characters and convert to uppercase
+            let formatted = value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            
+            // Ensure SWA2 prefix
+            if (!formatted.startsWith('SWA2')) {
+                if (formatted.length >= 4) {
+                    formatted = 'SWA2' + formatted.substring(4);
+                } else {
+                    formatted = 'SWA2' + formatted.substring(Math.min(formatted.length, 4));
+                }
+            }
+            
+            // Add hyphens
+            let result = '';
+            if (formatted.length > 0) {
+                result = formatted.substring(0, 4);
+                
+                if (formatted.length > 4) {
+                    result += '-' + formatted.substring(4, 8);
+                }
+                
+                if (formatted.length > 8) {
+                    result += '-' + formatted.substring(8, 12);
+                }
+            }
+            
+            // Limit to maximum length
+            if (result.length > 14) {
+                result = result.substring(0, 14);
+            }
+            
+            return result;
+        }
+        
+        // Apply masking to hide the activation code
+        function applyMasking() {
+            const input = document.getElementById('activation-code');
+            
+            if (!realActivationCode) {
+                input.value = '';
+                return;
+            }
+            
+            if (realActivationCode.startsWith('SWA2-')) {
+                const parts = realActivationCode.split('-');
+                let maskedValue = 'SWA2-';
+                
+                if (parts.length >= 2 && parts[1].length > 0) {
+                    maskedValue += '*'.repeat(parts[1].length);
+                }
+                
+                if (parts.length >= 3 && parts[2].length > 0) {
+                    maskedValue += '-' + '*'.repeat(parts[2].length);
+                }
+                
+                input.value = maskedValue;
+            } else if (realActivationCode.startsWith('SWA2')) {
+                // If we have just SWA2 without hyphen, show that part
+                input.value = realActivationCode;
+            } else {
+                // If it doesn't start with SWA2, mask everything
+                input.value = '*'.repeat(realActivationCode.length);
+            }
+        }
+        
+        // Toggle activation code visibility
+        function toggleActivationVisibility() {
+            const input = document.getElementById('activation-code');
+            const icon = document.getElementById('visibility-icon');
+            
+            activationVisible = !activationVisible;
+            
+            // Update the icon
+            if (activationVisible) {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                input.value = realActivationCode;
+            } else {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+                applyMasking();
+            }
+        }
+        
+        // Enable or disable activate button based on code format
+        function updateActivateButtonState() {
+            const activateBtn = document.getElementById('activate-btn');
+            activateBtn.disabled = !realActivationCode.match(/^SWA2-[A-Z0-9]{4}-[A-Z0-9]{4}$/);
+        }
+        
+        // Activate the software
+        function activate() {
+            // Always remember device (automatic)
+            const rememberDevice = true;
+
+            // Basic validation
+            if (!realActivationCode.match(/^SWA2-[A-Z0-9]{4}-[A-Z0-9]{4}$/)) {
+                updateStatus('Please enter a valid activation code (SWA2-XXXX-XXXX)', 'error');
+                return;
+            }
+
+            // Disable the activate button
+            document.getElementById('activate-btn').disabled = true;
+
+            // Send the activation message to C#
+            if (window.chrome && window.chrome.webview) {
+                const message = `activate:${realActivationCode}|${rememberDevice}`;
+                console.log("Sending to C#:", message);
+                window.chrome.webview.postMessage(message);
+                updateStatus('Connecting...', 'info');
+            } else {
+                console.error('WebView2 not available');
+                updateStatus('Error: WebView2 not available', 'error');
+                document.getElementById('activate-btn').disabled = false;
+            }
+        }
+        
+        // Prevent page refresh with keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Prevent Ctrl+R (refresh)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Prevent F5 (refresh)
+            if (e.key === 'F5') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Prevent other browser shortcuts
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'n' || e.key === 't')) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Handle Enter key in activation code field
+            if (e.key === 'Enter' && document.activeElement === document.getElementById('activation-code')) {
+                activate();
+            }
+        });
+        
+        // Prevent right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Handle window control buttons
+        function minimizeWindow() {
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage('minimize');
+            }
+        }
+
+        function closeWindow() {
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage('close');
+            }
+        }
+
+        // Handle window dragging via title bar
+        const titleBar = document.querySelector('.title-bar');
+        
+        titleBar.addEventListener('mousedown', function(e) {
+            // Don't do drag if clicking on window controls
+            if (e.target.closest('.window-controls')) {
+                return;
+            }
+            
+            // Send drag start message
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage('drag:start');
+            }
+        });
+        
+        // Login with SWA Cloud
+        function loginWithSWACloud() {
+            // Make sure we're on the SWA Cloud view (hide manual entry if visible)
+            const swacloudSection = document.getElementById('swacloud-section');
+            const manualSection = document.getElementById('manual-entry-section');
+
+            if (manualSection.style.display !== 'none') {
+                manualSection.style.display = 'none';
+                swacloudSection.style.display = 'block';
+            }
+
+            // Disable the buttons to prevent multiple clicks
+            document.getElementById('swacloud-login-btn').disabled = true;
+            document.getElementById('guest-login-btn').disabled = true;
+
+            // Show status message
+            updateStatus('Opening SWA Cloud authorization...', 'info');
+
+            // Send message to C# to open authorization URL
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage('swacloud-login');
+            } else {
+                console.error('WebView2 not available');
+                updateStatus('Error: WebView2 not available', 'error');
+
+                // Re-enable buttons
+                document.getElementById('swacloud-login-btn').disabled = false;
+                document.getElementById('guest-login-btn').disabled = false;
+            }
+        }
+
+        // Login as guest user
+        function loginAsGuest() {
+            // Make sure we're on the SWA Cloud view (hide manual entry if visible)
+            const swacloudSection = document.getElementById('swacloud-section');
+            const manualSection = document.getElementById('manual-entry-section');
+
+            if (manualSection.style.display !== 'none') {
+                manualSection.style.display = 'none';
+                swacloudSection.style.display = 'block';
+            }
+
+            // Disable the buttons to prevent multiple clicks
+            const activateBtn = document.getElementById('activate-btn');
+            document.getElementById('swacloud-login-btn').disabled = true;
+            document.getElementById('guest-login-btn').disabled = true;
+            if (activateBtn) activateBtn.disabled = true;
+
+            // Show status message
+            updateStatus('Logging in as guest...', 'info');
+
+            // Send guest login message to C#
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage('guest-login');
+            } else {
+                console.error('WebView2 not available');
+                updateStatus('Error: WebView2 not available', 'error');
+
+                // Re-enable buttons
+                document.getElementById('swacloud-login-btn').disabled = false;
+                document.getElementById('guest-login-btn').disabled = false;
+                if (activateBtn) activateBtn.disabled = false;
+            }
+        }
+
+        // Show manual entry section and hide SWA Cloud section
+        function showManualEntry() {
+            const swacloudSection = document.getElementById('swacloud-section');
+            const manualSection = document.getElementById('manual-entry-section');
+
+            swacloudSection.style.display = 'none';
+            manualSection.style.display = 'block';
+
+            // Clear activation code when switching
+            realActivationCode = '';
+            const input = document.getElementById('activation-code');
+            if (input) {
+                input.value = '';
+            }
+        }
+
+        // Show SWA Cloud login section and hide manual entry
+        function showSWACloudLogin() {
+            const swacloudSection = document.getElementById('swacloud-section');
+            const manualSection = document.getElementById('manual-entry-section');
+
+            manualSection.style.display = 'none';
+            swacloudSection.style.display = 'block';
+
+            // Clear activation code when switching
+            realActivationCode = '';
+            const input = document.getElementById('activation-code');
+            if (input) {
+                input.value = '';
+            }
+        }
+
+        // Legacy function for compatibility (used by C# code)
+        function toggleManualEntry() {
+            showManualEntry();
+        }
+        
+        // Update status message
+        function updateStatus(message, type) {
+            const statusElement = document.getElementById('status-message');
+            statusElement.textContent = message;
+
+            // Remove all classes
+            statusElement.classList.remove('error', 'success', 'info');
+
+            // Add the appropriate class
+            statusElement.classList.add(type);
+            statusElement.classList.add('visible');
+
+            // Hide after 5 seconds for success messages
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusElement.classList.remove('visible');
+                }, 5000);
+            }
+        }
+
+        // Global promise resolver for endpoint test results
+        let endpointTestResolver = null;
+        let endpointTestTimeout = null;
+
+        // Global handler for endpoint test results from C#
+        window.handleEndpointTestResults = function(results) {
+            console.log('Received endpoint test results:', results);
+
+            // Clear timeout
+            if (endpointTestTimeout) {
+                clearTimeout(endpointTestTimeout);
+                endpointTestTimeout = null;
+            }
+
+            const failedEndpoints = results.filter(r => !r.success);
+
+            if (failedEndpoints.length > 0) {
+                showConnectionError(failedEndpoints);
+                if (endpointTestResolver) endpointTestResolver(false);
+            } else {
+                console.log('All endpoints are reachable');
+                if (endpointTestResolver) endpointTestResolver(true);
+            }
+
+            endpointTestResolver = null;
+        };
+
+        // Test critical endpoints using C# backend (no CORS issues)
+        async function testCriticalEndpoints() {
+            return new Promise((resolve) => {
+                // Store resolver
+                endpointTestResolver = resolve;
+
+                // Request C# backend to test endpoints
+                if (window.chrome && window.chrome.webview) {
+                    // Request C# to test endpoints
+                    console.log('Requesting endpoint tests from C#...');
+                    window.chrome.webview.postMessage('test-endpoints');
+
+                    // Timeout after 15 seconds
+                    endpointTestTimeout = setTimeout(() => {
+                        console.error('Endpoint test timeout');
+                        showConnectionError([{
+                            name: 'Connection Test',
+                            success: false,
+                            errorType: 'Timeout',
+                            errorCode: 'TEST_TIMEOUT'
+                        }]);
+                        if (endpointTestResolver) endpointTestResolver(false);
+                        endpointTestResolver = null;
+                    }, 15000);
+                } else {
+                    console.error('WebView2 not available for endpoint testing');
+                    resolve(true); // Don't block if WebView2 is not available
+                }
+            });
+        }
+
+        // Show connection error overlay
+        function showConnectionError(failedEndpoints) {
+            const overlay = document.getElementById('connection-error-overlay');
+            const messageEl = document.getElementById('error-message');
+            const detailsEl = document.getElementById('error-details');
+
+            messageEl.textContent = 'Unable to connect to SWA servers. Please check your internet connection and try again.';
+
+            // Build error details WITHOUT exposing URLs
+            let details = 'Connection Details:\n\n';
+            failedEndpoints.forEach(endpoint => {
+                details += `Service: ${endpoint.name}\n`;
+                details += `Status: ${endpoint.errorType}\n`;
+                details += `Code: ${endpoint.errorCode}\n\n`;
+            });
+
+            detailsEl.textContent = details;
+            overlay.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
