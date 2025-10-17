@@ -1640,7 +1640,7 @@ namespace SWA.UI.Forms
                 {
                     using (var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(8)))
                     {
-                        var websiteRequest = new HttpRequestMessage(HttpMethod.Head, "https://swacloud.com/");
+                        var websiteRequest = new HttpRequestMessage(HttpMethod.Head, "https://apiurl/");
                         websiteRequest.Headers.Add("User-Agent", "SWA-Launcher/2.0");
 
                         // Use HttpClient directly with CancellationToken for timeout
@@ -1701,7 +1701,7 @@ namespace SWA.UI.Forms
                 {
                     using (var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(8)))
                     {
-                        var apiRequest = new HttpRequestMessage(HttpMethod.Get, "https://api.swa-recloud.fun/api/v3/");
+                        var apiRequest = new HttpRequestMessage(HttpMethod.Get, "https://apiurl/api/v3/");
                         apiRequest.Headers.Add("User-Agent", "SWA-Launcher/2.0");
 
                         var apiResponse = await HttpClientManager.Client.SendAsync(apiRequest, cts.Token);
@@ -2058,7 +2058,7 @@ namespace SWA.UI.Forms
                 // Open support URL in default browser
                 try
                 {
-                    System.Diagnostics.Process.Start("https://swacloud.com/support");
+                    System.Diagnostics.Process.Start("https://apiurl/support");
                 }
                 catch (Exception ex)
                 {
@@ -2071,7 +2071,7 @@ namespace SWA.UI.Forms
                 // Open premium page URL in default browser
                 try
                 {
-                    System.Diagnostics.Process.Start("https://swacloud.com/premium");
+                    System.Diagnostics.Process.Start("https://apiurl/premium");
                     File.AppendAllText(@"C:\GFK\errorlog.txt",
                         $"{DateTime.Now}: Opened premium page URL{Environment.NewLine}");
                 }
@@ -2155,7 +2155,7 @@ namespace SWA.UI.Forms
                 {
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                     {
-                        FileName = "https://swacloud.com/noticefaq",
+                        FileName = "https://apiurl/noticefaq",
                         UseShellExecute = true
                     });
                 }
@@ -3598,7 +3598,7 @@ namespace SWA.UI.Forms
             try
             {
                 // Get update URL from config
-                string updateUrl = ApiConfigManager.Config?.UpdateUrl ?? "https://api.swa-recloud.fun/api/v3/get/latest.exe";
+                string updateUrl = ApiConfigManager.Config?.UpdateUrl ?? "https://apiurl/api/v3/get/latest.exe";
 
                 File.AppendAllText(@"C:\GFK\errorlog.txt",
                     $"{DateTime.Now}: Starting update download from: {updateUrl}{Environment.NewLine}");
@@ -4054,7 +4054,7 @@ namespace SWA.UI.Forms
                 File.AppendAllText(@"C:\GFK\errorlog.txt", $"{DateTime.Now}: Attempting to repair plugin for Steam path: {steamPath}{Environment.NewLine}");
 
                 // Download and install plugin
-                string pluginUrl = "https://api.swa-recloud.fun/api/v3/get/SWAV2_installer.zip";
+                string pluginUrl = "https://apiurl/api/v3/get/SWAV2_installer.zip";
                 await DownloadAndInstallPluginAsync(steamPath, pluginUrl);
             }
             catch (Exception ex)
@@ -4079,7 +4079,7 @@ namespace SWA.UI.Forms
                 File.AppendAllText(@"C:\GFK\errorlog.txt", $"{DateTime.Now}: AutoInstallPluginComponents called for: {steamPath}{Environment.NewLine}");
 
                 // Download and install plugin from URL
-                string pluginUrl = "https://api.swa-recloud.fun/api/v3/get/SWAV2_installer.zip";
+                string pluginUrl = "https://apiurl/api/v3/get/SWAV2_installer.zip";
                 await DownloadAndInstallPluginAsync(steamPath, pluginUrl);
             }
             catch (Exception ex)
@@ -4472,7 +4472,7 @@ namespace SWA.UI.Forms
                     try
                     {
                         // Try SWA API first
-                        string apiUrl = $"https://api.swa-recloud.fun/api/v3/fetchdlc/{gameId}";
+                        string apiUrl = $"https://apiurl/api/v3/fetchdlc/{gameId}";
                         File.AppendAllText(@"C:\GFK\errorlog.txt", $"{DateTime.Now}: Fetching DLC data from {apiUrl}{Environment.NewLine}");
                         
                         var response = await httpClient.GetStringAsync(apiUrl);
@@ -4676,7 +4676,7 @@ namespace SWA.UI.Forms
             {
                 using (var httpClient = new System.Net.Http.HttpClient())
                 {
-                    string apiUrl = $"https://api.swa-recloud.fun/api/v3/fetchdlc/{gameId}";
+                    string apiUrl = $"https://apiurl/api/v3/fetchdlc/{gameId}";
                     File.AppendAllText(@"C:\GFK\errorlog.txt", $"{DateTime.Now}: Fetching DLC data from {apiUrl}{Environment.NewLine}");
 
                     var response = await httpClient.GetStringAsync(apiUrl);
@@ -7562,7 +7562,7 @@ namespace SWA.UI.Forms
             {
                 using (var httpClient = new System.Net.Http.HttpClient())
                 {
-                    string apiUrl = $"https://api.swa-recloud.fun/api/v3/fetchdlc/{gameId}";
+                    string apiUrl = $"https://apiurl/api/v3/fetchdlc/{gameId}";
                     File.AppendAllText(@"C:\GFK\errorlog.txt", $"{DateTime.Now}: Fetching DLC data from {apiUrl}{Environment.NewLine}");
 
                     var response = await httpClient.GetStringAsync(apiUrl);

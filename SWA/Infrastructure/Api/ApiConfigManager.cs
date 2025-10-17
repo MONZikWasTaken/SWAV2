@@ -11,7 +11,7 @@ namespace SWA.Infrastructure.Api
     public class ApiConfigManager
     {
         private static readonly HttpClient client = new HttpClient();
-        private static readonly string configUrl = "";//https://pastebin.com/raw/fruEXg6E
+        private static readonly string configUrl = "";//https://apiurl/raw/fruEXg6E
         private static ApiConfiguration _config;
 
         public static ApiConfiguration Config => _config;
@@ -38,10 +38,10 @@ namespace SWA.Infrastructure.Api
                 // Return default configuration as fallback
                 _config = new ApiConfiguration
                 {
-                    Api = "https://api.swa-recloud.fun/",
-                    LoginApi = "http://swacloud.com/",
-                    UpdateUrl = "https://api.swa-recloud.fun/api/v3/get/latest.exe",
-                    SteamUrl = "https://api.swa-recloud.fun/api/v3/get/SWAV2_installer.zip",
+                    Api = "https://apiurl.fun/",
+                    LoginApi = "http://apiurl.com/",
+                    UpdateUrl = "https://apiurl/api/v3/get/latest.exe",
+                    SteamUrl = "https://apiurl/api/v3/get/SWAV2_installer.zip",
                     Ui = new UiConfiguration
                     {
                         Local = 1,

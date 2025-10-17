@@ -88,7 +88,7 @@ namespace SWA.Core.Services
             else
             {
                 // Fallback URL if config not loaded
-                HeartbeatUrl = "https://api.swa-recloud.fun/api/v3/heartbeat";
+                HeartbeatUrl = "https://apiurl/api/v3/heartbeat";
 
                 // Disable heartbeats for guests by default if no config
                 if (isGuest)

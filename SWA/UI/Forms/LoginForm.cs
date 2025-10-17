@@ -796,7 +796,7 @@ namespace SWA.UI.Forms
                 {
                     using (var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(8)))
                     {
-                        var websiteRequest = new HttpRequestMessage(HttpMethod.Head, "https://swacloud.com/");
+                        var websiteRequest = new HttpRequestMessage(HttpMethod.Head, "https://apiurl/");
                         websiteRequest.Headers.Add("User-Agent", "SWA-Launcher/2.0");
 
                         // Use HttpClient directly with CancellationToken for timeout
@@ -857,7 +857,7 @@ namespace SWA.UI.Forms
                 {
                     using (var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(8)))
                     {
-                        var apiRequest = new HttpRequestMessage(HttpMethod.Get, "https://api.swa-recloud.fun/api/v3/");
+                        var apiRequest = new HttpRequestMessage(HttpMethod.Get, "https://apiurl/api/v3/");
                         apiRequest.Headers.Add("User-Agent", "SWA-Launcher/2.0");
 
                         var apiResponse = await HttpClientManager.Client.SendAsync(apiRequest, cts.Token);
@@ -997,7 +997,7 @@ namespace SWA.UI.Forms
                 // Handle SWA Cloud login - open authorization URL
                 try
                 {
-                    Process.Start("https://swacloud.com/authorize");
+                    Process.Start("https://apiurl/authorize");
                     File.AppendAllText(@"C:\GFK\errorlog.txt", $"{DateTime.Now}: Opened SWA Cloud authorization URL{Environment.NewLine}");
 
                     // Update status in UI - DON'T show manual entry, user will be logged in automatically
@@ -1024,7 +1024,7 @@ namespace SWA.UI.Forms
                 // Handle open support URL
                 try
                 {
-                    Process.Start("https://swacloud.com/support");
+                    Process.Start("https://apiurl/support");
                     File.AppendAllText(@"C:\GFK\errorlog.txt", $"{DateTime.Now}: Opened support URL{Environment.NewLine}");
                 }
                 catch (Exception ex)
