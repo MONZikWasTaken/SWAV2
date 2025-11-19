@@ -1,7 +1,7 @@
 # SWA V2 Source Code
 **A project by [SWACloud.com](https://swacloud.com)** using [SteamTools.net](https://www.steamtools.net/)'s (hid.dll)
 
-[UI Source Code](https://github.com/MONZikWasTaken/SWAV2-UI)
+[UI Source Code](https://github.com/MONZikWasTaken/SWAV2-UI) (moved to this repository)
 
 ---
 
